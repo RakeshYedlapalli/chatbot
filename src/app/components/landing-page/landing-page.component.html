@@ -1,0 +1,107 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black"
+>
+  <div class="max-w-4xl mx-auto space-y-8 pt-4 relative">
+    <div class="text-center space-y-4">
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+      >
+        Chat with bot
+      </h1>
+      <p class="text-gray-400 text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto">
+        Integrated with all your favorite tools.
+      </p>
+    </div>
+
+    <div>
+      <mat-card
+        class="bg-white/5 backdrop-blur-md shadow-xl border border-white/10 rounded-xl"
+      >
+        <!-- <mat-progress-bar
+          *ngIf="isLoading"
+          mode="indeterminate"
+        ></mat-progress-bar> -->
+        <mat-card-content class="space-y-4">
+          <div class="h-[65vh] overflow-y-auto pr-2">
+            <div *ngFor="let message of messages; let index = index">
+              <div
+                class="flex w-full mb-4"
+                [ngClass]="{
+                  'justify-end': message.sender === 'user',
+                  'justify-start': message.sender !== 'user'
+                }"
+              >
+                <div
+                  class="rounded-xl px-4 py-2 max-w-[70%] sm:max-w-[50%] md:max-w-[40%] shadow-md whitespace-pre-wrap break-words"
+                  [ngClass]="{
+                    'bg-blue-500 text-white ml-auto': message.sender === 'user',
+                    'bg-gray-200 text-gray-800 mr-auto':
+                      message.sender !== 'user'
+                  }"
+                >
+                  @if(index === messages.length - 1) {
+                  <app-typing-effect
+                    [message]="message.text"
+                  ></app-typing-effect>
+                  } @else {
+                  {{ message.text }}
+                  }
+                </div>
+              </div>
+            </div>
+            <div #messagesEnd></div>
+            <div *ngIf="isLoading" class="flex items-center text-gray-400">
+              <mat-icon class="animate-pulse w-5 h-5 mr-2">bolt</mat-icon>
+              Thinking...
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              color="primary"
+              class="mb-4"
+              mat-fab
+              aria-label="attach file"
+            >
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <input hidden #fileInput type="file" id="file" />
+
+            <mat-form-field class="flex-1">
+              <input
+                matInput
+                placeholder="Ask anything..."
+                [(ngModel)]="input"
+                (keydown.enter)="handleKeyDown()"
+                class="bg-black/20 text-white border-purple-500/30 placeholder:text-gray-500"
+                [disabled]="isLoading"
+                #inputField
+              />
+            </mat-form-field>
+
+            <button
+              class="mb-4"
+              (click)="handleSendMessage()"
+              [disabled]="isLoading"
+              mat-fab
+              extended
+            >
+              <mat-icon>send</mat-icon>
+              Send
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <button
+      color="primary"
+      (click)="handleNewChat()"
+      class="new-chat-btn"
+      matTooltip="Start new chat"
+      mat-fab
+      aria-label="Start new chat"
+    >
+      <mat-icon>add_comment</mat-icon>
+    </button>
+  </div>
+</div>
