@@ -8,9 +8,9 @@ import xml.etree.ElementTree as ET
 
 
 # AWS Credentials and Configuration
-aws_access_key_id = "AKIAWNHTHG6UDNI7ASF2"  # Replace with your actual AWS access key
-aws_secret_access_key = "O5xY5aBSRoBNebw/aIMjhni1vMTAkFF+YUdTkeck"  # Replace with your actual AWS secret key
-aws_region = "eu-west-3"
+aws_access_key_id = ""  # Replace with your actual AWS access key
+aws_secret_access_key = ""  # Replace with your actual AWS secret key
+aws_region = ""
  
 # Encodage du mot de passe pour l'URL (car il contient des caractères spéciaux)
 encoded_password = urllib.parse.quote("")
@@ -18,8 +18,8 @@ encoded_password = urllib.parse.quote("")
 # Configuration du proxy
 proxy_config = Config(
     proxies={
-        'http': f'http://:{encoded_password}@proxy-intra.par.emea.cib:8080',
-        'https': f'http://:{encoded_password}@proxy-intra.par.emea.cib:8080'
+        'http': f'http://:{encoded_password}@hostaddress',
+        'https': f'http://:{encoded_password}@hostaddress'
     }
 )
 
